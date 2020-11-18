@@ -1,28 +1,56 @@
-﻿
+﻿﻿//DITO NIYO ILALAGAY YUNG MGA ROUTES TAPOS YUNG MGA FUNCTION NA GAGAMITIN NYA SA SERVICE
 const express = require('express');
 const router = express.Router();
-const userService = require('./products.service');
+const productService = require('./products.service');
 
 // routes
-router.get('/', getAll);
-router.get('/:id', getById);
-router.delete('/:id', _delete);
+
+router.get('/', getAllProducts);
+router.get('/:id', getProduct);
+router.put('/:id', putProduct);
+router.delete('/:id', deleteProduct);
+router.post('/create', createProduct);
+//router.post('/:id/purchas?e', buyProduct);
+
+// router.get('/auth/purchase', getAllpurchasedByUser);
+// router.get('auth/cart', getAllInCart);
+// router.post('/auth/checkout', checkoutCart);
+// router.put('/auth/product/:id', putCart);
+// router.delete('/auth/cart/product/:id', deleteProductfromcart);
+// router.delete('/auth/cart/cart/product', deleteCart);
 
 module.exports = router;
-function getAll(req, res, next) {
-    userService.getAll()
-        .then(users => res.json(users))
+
+function getAllProducts(req, res, next) {
+    productService.getAllProducts()
+        .then(products => res.json(products))
         .catch(err => next(err));
 }
 
-function getById(req, res, next) {
-    userService.getById(req.params.id)
-        .then(product => product ? res.json(product) : res.sendStatus(404))
+function getProduct(req, res, next) {
+    productService.getProduct(req.params.id)
+        .then(product => res.json(product))
         .catch(err => next(err));
 }
 
-function _delete(req, res, next) {
-    userService.delete(req.params.id)
-        .then(() => res.json({}))
+function putProduct(req, res, next) {
+    productService.putProduct(req.params.id, req.body)
+        .then(() => res.json({'update':'true'}))
         .catch(err => next(err));
 }
+
+function createProduct(req, res, next) {
+    productService.createProduct(req.body)
+        .then(() => res.json({
+            "created":"true"
+        }))
+        .catch(err => next(err));
+}
+
+function deleteProduct(req, res, next) {
+    productService.deleteProduct(req.params.id)
+        .then(() => res.json({
+            "delete":"true"
+        }))
+        .catch(err => next(err));
+} 
