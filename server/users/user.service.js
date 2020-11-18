@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('_helpers/db');
 const User = db.User;
+const Product = db.Product;
 
 module.exports = {
     authenticate,
@@ -29,6 +30,10 @@ async function authenticate({ username, password }) {
 
 async function getAll() {
     return await User.find();
+}
+
+async function getAllMyProducts(userid) {
+    return await Products.find(userid);
 }
 
 async function getById(id) {

@@ -7,6 +7,7 @@ const userService = require('./user.service');
 router.post('/authenticate', authenticate);
 router.post('/register', register);
 router.get('/', getAll);
+router.get('/auth/my-products', getAllMyProducts);
 router.get('/current', getCurrent);
 router.get('/:id', getById);
 router.put('/:id', update);
@@ -27,6 +28,12 @@ function register(req, res, next) {
 }
 function getAll(req, res, next) {
     userService.getAll()
+        .then(users => res.json(users))
+        .catch(err => next(err));
+}
+
+function getAllMyProducts(req, res, next) {
+    userService.getAll(req.body.userid)
         .then(users => res.json(users))
         .catch(err => next(err));
 }
