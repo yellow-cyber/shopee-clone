@@ -1,0 +1,4 @@
+﻿{
+    "connectionString": "mongodb+srv://chihuahua:ray-66100@cluster0.97qep.mongodb.net/chihuahua?retryWrites=true&w=majority",
+    "secret": "CHIHUAHUAHUAHUA"
+}
