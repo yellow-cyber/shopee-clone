@@ -29,14 +29,14 @@ const LoginSchema = Yup.object().shape({
     .required("Required"),
 });
 
-const Login = ({ setAuth }) => {
+const Login = ({ setAuth, setCurrentUser }) => {
   const [invalid, setInvalid] = useState(false);
   const [isLoginLoading, setIsLoginLoading] = useState(false);
   return (
     <Fragment>
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-teal-400 to-blue-500">
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-yellow-1000 to-yellow-1000">
         <div className="animate__animated animate__bounceIn flex flex-col items-center  shadow-xl rounded-lg py-10 bg-white h-auto w-4/12">
-          <h1 className="text-3xl text-gray-800 font-bold">Sales Point</h1>
+          <h1 className="text-3xl text-gray-800 font-bold">ChihuahuaPOS</h1>
           <Formik
             initialValues={{
               username: "",
@@ -47,7 +47,7 @@ const Login = ({ setAuth }) => {
               try {
                 setIsLoginLoading(true);
                 const res = await API.post("users/authenticate", values);
-                console.log(res.data);
+                setCurrentUser(res.data);
                 localStorage.setItem("token", res.data.token);
                 setIsLoginLoading(false);
                 setSubmitting(false);
@@ -102,13 +102,13 @@ const Login = ({ setAuth }) => {
                     {errors.password}
                   </span>
                 ) : null}
-                <button className="flex justify-center focus:outline-none transition duration-500 ease-linear mt-6 bg-gradient-to-r from-teal-400 to-blue-500 hover:from-teal-400 hover:to-blue-600 text-white rounded-lg p-4 text-md font-bold">
+                <button className="flex justify-center focus:outline-none transition duration-500 ease-linear mt-6 bg-gradient-to-r from-yellow-1000 to-yellow-1000 hover:from-yellow-400 hover:to-yellow-400 text-gray-800 rounded-lg p-4 text-md font-bold">
                   {/* <svg
                     class="animate-spin bg-red-600 h-5 w-5 text-red-600"
                     viewBox="0 0 24 24"
                   ></svg> */}
                   {isLoginLoading ? (
-                    <ButtonLoading size={20} color={"#ffff"} />
+                    <ButtonLoading size={20} color={"#000"} />
                   ) : (
                     "Login"
                   )}
