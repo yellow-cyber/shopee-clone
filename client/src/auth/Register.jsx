@@ -52,7 +52,7 @@ const Login = ({ setAuth }) => {
   }
   return (
     <Fragment>
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-teal-400 to-blue-500">
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-yellow-1000 to-yellow-1000">
         <div className="animate__animated animate__bounceIn flex flex-col items-center  shadow-xl rounded-lg py-10 bg-white h-auto w-4/12">
           <h1 className="text-3xl text-gray-800 font-bold">
             Create an account
@@ -175,9 +175,9 @@ const Login = ({ setAuth }) => {
                     {errors.confirmPassword}
                   </span>
                 ) : null}
-                <button className="flex justify-center focus:outline-none transition duration-500 ease-linear mt-6 bg-gradient-to-r from-teal-400 to-blue-500 hover:from-teal-400 hover:to-blue-600 text-white rounded-lg p-4 text-md font-bold">
+                <button className="flex justify-center focus:outline-none transition duration-500 ease-linear mt-6 bg-gradient-to-r from-yellow-1000 to-yellow-1000 hover:from-yellow-400 hover:to-yellow-400 text-gray-800 rounded-lg p-4 text-md font-bold">
                   {isLoginLoading ? (
-                    <ButtonLoading size={20} color={"#ffff"} />
+                    <ButtonLoading size={20} color={"#000"} />
                   ) : (
                     "Register"
                   )}

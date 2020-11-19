@@ -1,18 +1,8 @@
 import React from "react";
-import Loading from "../misc/Loading";
+import { Route } from "react-router-dom";
 
-const Home = ({ auth, setAuth }) => {
-  const onLogout = () => {
-    localStorage.removeItem("token");
-    setAuth(false);
-  };
-  if (!auth) return <Loading />;
-  return (
-    <div>
-      <p>Home</p>
-      <button onClick={onLogout}>Logout</button>
-    </div>
-  );
+const Home = ({ children }) => {
+  return <div className="flex min-h-screen ">{children}</div>;
 };
 
 export default Home;
