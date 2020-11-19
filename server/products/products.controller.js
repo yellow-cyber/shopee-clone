@@ -50,7 +50,7 @@ function createProduct(req, res, next) {
 
 function deleteProduct(req, res, next) {
   productService
-    .deleteProduct(req.params.id)
+    .deleteAProduct(req.params.id)
     .then(() =>
       res.json({
         delete: "true",

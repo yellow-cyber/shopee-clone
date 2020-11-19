@@ -5,6 +5,21 @@ import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 import ButtonLoading from "react-spinners/MoonLoader";
 import { API } from "../utils/API";
+import Loader from "react-spinners/BeatLoader";
+
+import Swal from "sweetalert2";
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
 
 ReactModal.setAppElement("body");
 const ProductSchema = Yup.object().shape({
@@ -21,9 +36,9 @@ const ProductSchema = Yup.object().shape({
 const MyProducts = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormLoading, setIsFormLoading] = useState(false);
-
   const [myProducts, setMyProducts] = useState([]);
-
+  const [productsUpdate, setProductsUpdate] = useState(true);
+  const [isFetchingData, setIsFetchingData] = useState(true);
   useEffect(() => {
     const getMyProducts = async () => {
       try {
@@ -31,14 +46,26 @@ const MyProducts = () => {
           headers: { Authorization: `Bearer ${localStorage.token}` },
         });
         setMyProducts(res.data); //edit this
+        setIsFetchingData(false);
       } catch (error) {}
     };
-    getMyProducts();
-  }, []);
+    if (productsUpdate) {
+      getMyProducts();
+      setProductsUpdate(false);
+    }
+  }, [productsUpdate]);
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    if (!isFormLoading) setIsModalOpen(false);
   };
+  if (isFetchingData) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        {" "}
+        <Loader color={"#9CA3AF"} />
+      </div>
+    );
+  }
   return (
     <>
       <div className="flex ">
@@ -54,7 +81,15 @@ const MyProducts = () => {
       </div>
       <div className="flex mt-6 flex-wrap justify-start">
         {myProducts.map((product, index) => {
-          return <MyItemCard key={product.id} />;
+          return (
+            <MyItemCard
+              setIsFetchingData={setIsFetchingData}
+              isFetchingData={isFetchingData}
+              setProductsUpdate={setProductsUpdate}
+              key={product.id}
+              product={product}
+            />
+          );
         })}
       </div>
 
@@ -79,17 +114,25 @@ const MyProducts = () => {
             onSubmit={async (values, { setSubmitting }) => {
               values.sold = 0;
               try {
-                console.log("sub");
                 setIsFormLoading(true);
                 const res = await API.post("/products", values, {
                   headers: { Authorization: `Bearer ${localStorage.token}` },
                 });
-                console.log(res.data);
                 setSubmitting(false);
                 setIsFormLoading(false);
+                setProductsUpdate(true);
+                setIsModalOpen(false);
+                Toast.fire({
+                  icon: "success",
+                  title: "Product successfully added!",
+                });
               } catch (error) {
-                console.log(error);
+                console.log(error.message);
                 setIsFormLoading(false);
+                Toast.fire({
+                  icon: "error",
+                  title: "Product name already taken!",
+                });
               }
             }}
           >

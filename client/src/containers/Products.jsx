@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ItemCard from "../components/ItemCard";
 import { API } from "../utils/API";
+import Loader from "react-spinners/BeatLoader";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [isFetchingData, setIsFetchingData] = useState(true);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -11,12 +13,20 @@ const Products = () => {
         const res = await API.get("/products", {
           headers: { Authorization: `Bearer ${localStorage.token}` },
         });
-        setProducts(res.data); //edit this
-        console.log(res.data);
+        setProducts(res.data);
+        setIsFetchingData(false);
       } catch (error) {}
     };
     getProducts();
   }, []);
+  if (isFetchingData) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        {" "}
+        <Loader color={"#9CA3AF"} />
+      </div>
+    );
+  }
   return (
     <>
       <div className="flex ">
