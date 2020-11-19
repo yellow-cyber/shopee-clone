@@ -11,6 +11,8 @@ const schema = new Schema({
     productName: { type: String, required: true },
     quantity: { type: String, required: true },
     description: { type: String, required: true },
+	quantity: { type: number, required: true },
+	sold: { type: number, required: true },
     createdDate: { type: Date, default: Date.now }
 });
 
