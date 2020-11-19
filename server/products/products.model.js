@@ -9,7 +9,9 @@ const Schema = mongoose.Schema;
 const schema = new Schema({
     productId: { type: String, unique: true, required: true },
     productName: { type: String, required: true },
+    ownerId: { type: String, required: true },
     quantity: { type: String, required: true },
+    sold: { type: String, required: true },
     description: { type: String, required: true },
     createdDate: { type: Date, default: Date.now }
 });

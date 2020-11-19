@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const db = require('_helpers/db');
 const Purchase = db.Purchase;
 const Cart = db.Cart;
+const Product = db.Product;
 
 module.exports = {
     getAllpurchase,
@@ -16,11 +17,14 @@ module.exports = {
     updateCart,
     addToCart,
     deleteAProductFormCart,
-    deleteCart
+    deleteCart,
+    getallMyproducts,
+    getMyproductsById,
+    getAllMysoldProducts
 };
 
 async function getAllpurchase(userid) {
-    return await Purchase.find(userid);
+    return await Purchase.find({userid: userid}).exec();
 }
 
 async function getAllCart(userid) {
@@ -75,6 +79,14 @@ async function deleteCart(id) {
     }
 }
 
-async function getAllpurchase(userid) {
-    return await Product.find(userid);
+async function getallMyproducts(userid) {
+    return await Product.find({ownerId: userid}).exec()
+}
+
+async function getMyproductsById(userid, productId) {
+    return await Product.find({ownerId: userid, productId: productId}).exec()
+}
+
+async function getAllMysoldProducts(userid) {
+    return await Product.find({ownerId: userid ,sold: { $gte: 1 }}).exec()
 }
