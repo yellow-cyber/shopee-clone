@@ -13,6 +13,8 @@ const schema = new Schema({
     quantity: { type: String, required: true },
     sold: { type: String, required: true },
     description: { type: String, required: true },
+	quantity: { type: number, required: true },
+	sold: { type: number, required: true },
     createdDate: { type: Date, default: Date.now }
 });
 
