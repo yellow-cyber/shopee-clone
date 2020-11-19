@@ -9,7 +9,8 @@ router.get('/', getAllProducts);
 router.get('/:id', getProduct);
 router.put('/:id', putProduct);
 router.delete('/:id', deleteProduct);
-router.post('/create', createProduct);
+router.post('/', createProduct);
+//router.post('/create', createProduct);
 //router.post('/:id/purchas?e', buyProduct);
 
 // router.get('/auth/purchase', getAllpurchasedByUser);
