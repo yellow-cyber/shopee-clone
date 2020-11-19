@@ -1,15 +1,15 @@
-﻿﻿//DITO NIYO ILALAGAY YUNG MGA ROUTES TAPOS YUNG MGA FUNCTION NA GAGAMITIN NYA SA SERVICE
-const express = require('express');
+﻿﻿﻿//DITO NIYO ILALAGAY YUNG MGA ROUTES TAPOS YUNG MGA FUNCTION NA GAGAMITIN NYA SA SERVICE
+const express = require("express");
 const router = express.Router();
-const productService = require('./products.service');
+const productService = require("./products.service");
 
 // routes
 
-router.get('/', getAllProducts);
-router.get('/:id', getProduct);
-router.put('/:id', putProduct);
-router.delete('/:id', deleteProduct);
-router.post('/', createProduct);
+router.get("/", getAllProducts);
+router.get("/:id", getProduct);
+router.put("/:id", putProduct);
+router.delete("/:id", deleteProduct);
+router.post("/", createProduct);
 //router.post('/create', createProduct);
 //router.post('/:id/purchas?e', buyProduct);
 
@@ -23,35 +23,38 @@ router.post('/', createProduct);
 module.exports = router;
 
 function getAllProducts(req, res, next) {
-    productService.getAllProducts()
-        .then(products => res.json(products))
-        .catch(err => next(err));
+  productService
+    .getAllProducts()
+    .then((products) => res.json(products))
+    .catch((err) => next(err));
 }
 
 function getProduct(req, res, next) {
-    productService.getProduct(req.params.id)
-        .then(product => res.json(product))
-        .catch(err => next(err));
+  productService
+    .getProduct(req.params.id)
+    .then((product) => res.json(product))
+    .catch((err) => next(err));
 }
-
 function putProduct(req, res, next) {
-    productService.putProduct(req.params.id, req.body)
-        .then(() => res.json({'update':'true'}))
-        .catch(err => next(err));
+  productService
+    .putProduct(req.params.id, req.body)
+    .then(() => res.json({ update: "true" }))
+    .catch((err) => next(err));
 }
-
 function createProduct(req, res, next) {
-    productService.createProduct(req.body)
-        .then(() => res.json({
-            "created":"true"
-        }))
-        .catch(err => next(err));
+  productService
+    .createProduct(req.body, req.user.sub)
+    .then((user) => (user ? res.json(user) : res.sendStatus(404)))
+    .catch((err) => next(err));
 }
 
 function deleteProduct(req, res, next) {
-    productService.deleteProduct(req.params.id)
-        .then(() => res.json({
-            "delete":"true"
-        }))
-        .catch(err => next(err));
-} 
+  productService
+    .deleteAProduct(req.params.id)
+    .then(() =>
+      res.json({
+        delete: "true",
+      })
+    )
+    .catch((err) => next(err));
+}

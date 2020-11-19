@@ -24,21 +24,21 @@ const CartCard = () => {
       <div className="flex justify-end w-1/3 items-center">
         {/* <p className="mr-6">P{unitPrice}</p> */}
         <div className="flex items-center">
-          <div
+          <button
             onClick={subtractQty}
-            className="border w-8 text-gray-600 cursor-pointer font-bold h-8 flex items-center justify-center"
+            className="focus:outline-none border w-8 text-gray-600 cursor-pointer font-bold h-8 flex items-center justify-center"
           >
             {"-"}
-          </div>
+          </button>
           <div className="border w-12 h-8 flex items-center justify-center">
             {qty}
           </div>
-          <div
+          <button
             onClick={() => setQty(qty + 1)}
-            className="border text-gray-600 font-bold cursor-pointer w-8 h-8 flex items-center justify-center"
+            className="focus:outline-none border text-gray-600 font-bold cursor-pointer w-8 h-8 flex items-center justify-center"
           >
             {"+"}
-          </div>
+          </button>
           <p className="ml-6 font-bold">P{totalPrice.toFixed(2)}</p>
           <button className="ml-6  text-red-600 focus:outline-none text-xs">
             Delete
