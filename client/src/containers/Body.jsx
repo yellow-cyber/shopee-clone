@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import Products from "./Products";
 import About from "./About";
 import Cart from "./Cart";
+import MyProducts from "./MyProducts";
 
 const Body = () => {
   return (
@@ -12,6 +13,9 @@ const Body = () => {
       </Route>
       <Route path="/products">
         <Products />
+      </Route>
+      <Route path="/my-products">
+        <MyProducts />
       </Route>
       <Route path="/cart">
         <Cart />
