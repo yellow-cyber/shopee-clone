@@ -5,11 +5,9 @@ const Schema = mongoose.Schema;
 
 //ITO KAILANGAN NIYO SA PAG REGISTER EXCPET SA HASH AND CREATED DATE
 const schema = new Schema({
-  productId: { type: String, unique: true, required: true },
   productName: { type: String, required: true },
   ownerId: { type: String, required: true },
   quantity: { type: String, required: true },
-  sold: { type: String, required: true },
   description: { type: String, required: true },
   quantity: { type: Number, required: true },
   sold: { type: Number, required: true },

@@ -35,22 +35,16 @@ function getProduct(req, res, next) {
     .then((product) => res.json(product))
     .catch((err) => next(err));
 }
-
 function putProduct(req, res, next) {
   productService
     .putProduct(req.params.id, req.body)
     .then(() => res.json({ update: "true" }))
     .catch((err) => next(err));
 }
-
 function createProduct(req, res, next) {
   productService
-    .createProduct(req.body)
-    .then(() =>
-      res.json({
-        created: "true",
-      })
-    )
+    .createProduct(req.body, req.user.sub)
+    .then((user) => (user ? res.json(user) : res.sendStatus(404)))
     .catch((err) => next(err));
 }
 
