@@ -1,4 +1,4 @@
-﻿﻿//DITO NIYO ILALAGAY YUNG MGA ROUTES TAPOS YUNG MGA FUNCTION NA GAGAMITIN NYA SA SERVICE
+﻿﻿﻿//DITO NIYO ILALAGAY YUNG MGA ROUTES TAPOS YUNG MGA FUNCTION NA GAGAMITIN NYA SA SERVICE
 const express = require("express");
 const router = express.Router();
 const productService = require("./products.service");
@@ -9,7 +9,8 @@ router.get("/", getAllProducts);
 router.get("/:id", getProduct);
 router.put("/:id", putProduct);
 router.delete("/:id", deleteProduct);
-router.post("/create", createProduct);
+router.post("/", createProduct);
+//router.post('/create', createProduct);
 //router.post('/:id/purchas?e', buyProduct);
 
 // router.get('/auth/purchase', getAllpurchasedByUser);
