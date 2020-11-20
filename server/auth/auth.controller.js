@@ -6,12 +6,12 @@ const authService = require("./auth.service");
 // routes
 router.get("/purchase", getAllpurchase);
 router.get("/cart", getAllCart);
-router.get("/cart/add", addToCart);
+router.post("/cart/add", addToCart);
 router.post("/checkout", checkoutCart);
 
-router.put("/cart/product/:id", updateCart);
-router.delete("/cart/product/:id", deleteAProductFormCart);
-router.delete("/cart/product/", deleteCart);
+router.put("/cart/:id", updateCart);
+router.delete("/cart/:id", deleteAProductFormCart);
+router.delete("/cart/", deleteCart);
 
 router.get("/my-products", getallMyproducts);
 router.get("/my-products/:id", getMyproductsById);
@@ -21,28 +21,28 @@ module.exports = router;
 
 function getAllpurchase(req, res, next) {
   authService
-    .getAllpurchase(req.body.userid)
+    .getAllpurchase(req.user.sub)
     .then((purchase) => res.json(purchase))
     .catch((err) => next(err));
 }
 
 function getAllCart(req, res, next) {
   authService
-    .getAllCart(req.body.userid)
+    .getAllCart(req.user.sub)
     .then((purchase) => res.json(purchase))
     .catch((err) => next(err));
 }
 
 function addToCart(req, res, next) {
   authService
-    .addToCart(req.body)
+    .addToCart(req.body, req.user.sub)
     .then(() => res.json({ addToCart: "true" }))
     .catch((err) => next(err));
 }
 
 function checkoutCart(req, res, next) {
   authService
-    .checkoutCart(req.body.userid)
+    .checkoutCart(req.user.sub)
     .then(() => res.json({ checkout: "true" }))
     .catch((err) => next(err));
 }
@@ -52,7 +52,7 @@ function updateCart(req, res, next) {
   console.log(req.params.id);
   authService
     .updateCart(req.body, req.params.id)
-    .then(() => res.json({ updateCart: "true" }))
+    .then((cart) => res.json({ updateCart: cart }))
     .catch((err) => next(err));
 }
 

@@ -31,7 +31,7 @@ function getAllProducts(req, res, next) {
 
 function getProduct(req, res, next) {
   productService
-    .getProduct(req.params.id)
+    .getAProduct(req.params.id)
     .then((product) => res.json(product))
     .catch((err) => next(err));
 }

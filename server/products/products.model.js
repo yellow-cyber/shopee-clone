@@ -9,6 +9,7 @@ const schema = new Schema({
   ownerId: { type: String, required: true },
   quantity: { type: String, required: true },
   description: { type: String, required: true },
+  price: { type: Number, required: true },
   quantity: { type: Number, required: true },
   sold: { type: Number, required: true },
   createdDate: { type: Date, default: Date.now },
