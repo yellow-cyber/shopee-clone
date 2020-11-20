@@ -28,6 +28,7 @@ const ProductSchema = Yup.object().shape({
     .max(20, "Too Long!")
     .required("Required"),
   quantity: Yup.number().required().positive().integer(),
+  price: Yup.number().required().positive(),
   description: Yup.string()
     .min(6, "Too Short!")
     .max(20, "Too Long!")
@@ -107,7 +108,8 @@ const MyProducts = () => {
           <Formik
             initialValues={{
               productName: "",
-              quantity: 0,
+              quantity: 1,
+              price: 0.0,
               description: "",
             }}
             validationSchema={ProductSchema}
@@ -183,6 +185,29 @@ const MyProducts = () => {
                 {errors.quantity && touched.quantity ? (
                   <span className=" text-xs text-red-600 mb-2">
                     {errors.quantity}
+                  </span>
+                ) : null}
+                <label
+                  htmlFor="price"
+                  className="mt-6 text-xs font-bold text-gray-800"
+                >
+                  Price
+                </label>
+                <Field
+                  type="number"
+                  step="any"
+                  min="1"
+                  className={`${
+                    errors.price && touched.price ? "border-red-400" : null
+                  } focus:outline-none py-2 text-sm w-full  border-b`}
+                  placeholder="Product Price"
+                  id="price"
+                  name="price"
+                  autoComplete="off"
+                />
+                {errors.price && touched.price ? (
+                  <span className=" text-xs text-red-600 mb-2">
+                    {errors.price}
                   </span>
                 ) : null}
 

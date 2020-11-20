@@ -4,6 +4,7 @@ import Products from "./Products";
 import About from "./About";
 import Cart from "./Cart";
 import MyProducts from "./MyProducts";
+import Purchased from "./Purchased";
 
 const Body = () => {
   return (
@@ -16,6 +17,9 @@ const Body = () => {
       </Route>
       <Route path="/my-products">
         <MyProducts />
+      </Route>
+      <Route path="/purchase">
+        <Purchased />
       </Route>
       <Route path="/cart">
         <Cart />

@@ -35,7 +35,7 @@ const MyItemCard = ({
   product,
   setIsFetchingData,
 }) => {
-  const { productName, description, id, quantity, sold } = product;
+  const { productName, description, id, quantity, sold, price } = product;
   const [isUpdating, setIsUpdating] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormLoading, setIsFormLoading] = useState(false);
@@ -73,11 +73,7 @@ const MyItemCard = ({
         <div className="shadow-lg items-center justify-center flex-wrap flex-col h-full rounded-3xl flex p-4">
           <img src={chihuahua} className="w-24" alt="" />
           <h1 className="mt-2 text-2xl font-bold">{productName}</h1>
-          <small className="text-gray-400 text-xs break-words">
-            {description.length > 10
-              ? description.substring(0, 10) + "..."
-              : description}
-          </small>
+          <small className="text-gray-400 text-xs break-words">P{price}</small>
           <div className="flex justify-around">
             <button
               onClick={() => setIsModalOpen(true)}
