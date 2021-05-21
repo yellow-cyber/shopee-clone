@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./containers/App.jsx";
-import "./assets/css/main.css";
+import "./assets/css/tailwind.css";
 import "animate.css";
 
 ReactDOM.render(
